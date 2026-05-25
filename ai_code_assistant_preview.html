@@ -1,0 +1,213 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.app{display:flex;height:620px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary)}
+.sidebar{width:200px;flex-shrink:0;background:#12103a;padding:18px 14px;display:flex;flex-direction:column;gap:10px}
+.sb-title{color:#fff;font-size:15px;font-weight:500}
+.sb-tag{color:#a89fce;font-size:11px}
+.sb-section{color:#7c78a8;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;margin-top:6px}
+.sb-badge{display:inline-block;background:rgba(100,80,255,.18);border:0.5px solid rgba(100,80,255,.4);border-radius:5px;padding:3px 7px;font-size:10px;color:#c4b8ff;margin:2px 1px}
+.divider{height:0.5px;background:rgba(255,255,255,.1);margin:4px 0}
+.sb-langs{color:#7c78a8;font-size:10px;margin-top:2px}
+.main{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.hero{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);border-radius:10px;padding:14px 18px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:130px;height:130px;background:radial-gradient(circle,rgba(100,80,255,.35) 0%,transparent 70%);border-radius:50%}
+.hero h1{color:#fff;font-size:17px;font-weight:500}
+.hero p{color:#a89fce;font-size:11px;margin-top:3px}
+.section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary)}
+.code-box{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;font-family:var(--font-mono);font-size:11px;color:var(--color-text-primary);min-height:80px;resize:none;width:100%}
+.lang-row{display:flex;align-items:center;gap:8px}
+.lang-select{font-size:11px;padding:4px 8px;border-radius:6px;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary)}
+.info-pill{background:var(--color-background-info);color:var(--color-text-info);font-size:11px;padding:3px 10px;border-radius:20px;border:0.5px solid var(--color-border-info)}
+.sep{height:0.5px;background:var(--color-border-tertiary)}
+.btn-row{display:flex;gap:6px}
+.btn{flex:1;padding:7px 4px;font-size:11px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:6px;background:transparent;color:var(--color-text-primary);cursor:pointer;transition:background .15s}
+.btn:hover{background:var(--color-background-secondary)}
+.btn.active{background:#302b63;color:#c4b8ff;border-color:rgba(100,80,255,.5)}
+.tabs{display:flex;gap:0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.tab{padding:7px 10px;font-size:11px;color:var(--color-text-secondary);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.active{color:var(--color-text-primary);border-bottom-color:#6450ff;font-weight:500}
+.tab-content{padding:12px 0;flex:1}
+.analysis-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}
+.sev{font-size:12px}
+.issue-text{font-size:12px;color:var(--color-text-primary);line-height:1.5}
+.issue-sub{font-size:11px;color:var(--color-text-secondary)}
+.success-box{background:var(--color-background-success);border:0.5px solid var(--color-border-success);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--color-text-success)}
+.code-output{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:6px;padding:10px 12px;font-family:var(--font-mono);font-size:11px;color:var(--color-text-primary);line-height:1.6}
+.tutor-box{background:var(--color-background-secondary);border-left:3px solid #6450ff;border-radius:0 6px 6px 0;padding:10px 12px;font-size:12px;color:var(--color-text-primary);line-height:1.6;margin-bottom:8px}
+.tutor-step{font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;line-height:1.5}
+.sub-tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.sub-tab{padding:4px 10px;font-size:10px;border:0.5px solid var(--color-border-tertiary);border-radius:20px;cursor:pointer;color:var(--color-text-secondary)}
+.sub-tab.active{background:#302b63;color:#c4b8ff;border-color:rgba(100,80,255,.5)}
+.footer{text-align:center;font-size:10px;color:var(--color-text-secondary);padding:8px 0 0;border-top:0.5px solid var(--color-border-tertiary);margin-top:auto}
+.quiz-q{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:5px}
+.quiz-opt{font-size:11px;color:var(--color-text-secondary);margin:3px 0}
+.quiz-opt.correct{color:var(--color-text-success);font-weight:500}
+</style>
+
+<h2 class="sr-only">AI Code Assistant — interactive app preview showing sidebar, code input, action buttons, and tabbed output panels</h2>
+
+<div class="app">
+  <div class="sidebar">
+    <div class="sb-title">🤖 AI Code Assistant</div>
+    <div class="sb-tag">Learn • Build • Improve with AI</div>
+    <div class="divider"></div>
+    <div class="sb-section">Features</div>
+    <div>
+      <span class="sb-badge">🔍 Bug Analysis</span>
+      <span class="sb-badge">🛠 Code Fixer</span>
+      <span class="sb-badge">🧪 Test Cases</span>
+      <span class="sb-badge">👨‍🏫 AI Tutor</span>
+      <span class="sb-badge">📖 Concepts</span>
+      <span class="sb-badge">🧠 Practice</span>
+      <span class="sb-badge">❓ Quiz</span>
+      <span class="sb-badge">💡 Tips</span>
+    </div>
+    <div class="divider"></div>
+    <div class="sb-section">Languages</div>
+    <div class="sb-langs">Python · C · Java · JavaScript · Go · Rust · HTML</div>
+    <div class="divider"></div>
+    <div class="sb-langs" style="margin-top:auto">Powered by GPT-4o Mini</div>
+  </div>
+
+  <div class="main">
+    <div class="hero">
+      <h1>🤖 AI Code Assistant</h1>
+      <p>Learn • Build • Improve with AI — your intelligent coding companion</p>
+    </div>
+
+    <div class="section-label">📝 Paste Your Code</div>
+    <textarea class="code-box" id="codeInput" spellcheck="false">def calculate_average(numbers):
+    total = 0
+    for n in numbers:
+        total += n
+    average = total / len(numbers)
+    return average
+
+print(calculate_average([10, 20, 30]))</textarea>
+
+    <div class="lang-row">
+      <select class="lang-select" id="langSel">
+        <option>Python</option><option>C</option><option>Java</option>
+        <option>JavaScript</option><option>Go</option><option>Rust</option>
+      </select>
+      <span class="info-pill" id="detectedLang">🔎 Auto-detected: Python</span>
+    </div>
+
+    <div class="sep"></div>
+    <div class="section-label">⚡ Actions</div>
+    <div class="btn-row">
+      <button class="btn active" id="btnAnalyze" onclick="switchTab('analysis',this)">📊 Analyze</button>
+      <button class="btn" id="btnFix" onclick="switchTab('fix',this)">🛠 Fix Code</button>
+      <button class="btn" id="btnTests" onclick="switchTab('tests',this)">🧪 Test Cases</button>
+      <button class="btn" id="btnTutor" onclick="switchTab('tutor',this)">👨‍🏫 AI Tutor</button>
+      <button class="btn" id="btnStudy" onclick="switchTab('study',this)">📚 Study</button>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="tabs">
+      <div class="tab active" id="tabAnalysis">📊 Analysis</div>
+      <div class="tab" id="tabFix">🛠 Fixed Code</div>
+      <div class="tab" id="tabTests">🧪 Test Cases</div>
+      <div class="tab" id="tabTutor">👨‍🏫 AI Tutor</div>
+      <div class="tab" id="tabStudy">📚 Study Environment</div>
+    </div>
+
+    <div class="tab-content" id="contentArea">
+      <!-- filled by JS -->
+    </div>
+
+    <div class="footer">Built with ❤️ for Hackathon &nbsp;|&nbsp; Powered by GPT-4o Mini &nbsp;|&nbsp; 🤖 AI Code Assistant</div>
+  </div>
+</div>
+
+<script>
+const contents = {
+  analysis: `
+    <div class="success-box" style="margin-bottom:10px">✅ Analysis complete — 3 issues found</div>
+    <div class="analysis-row"><span class="sev">🔴</span><div><div class="issue-text">Division by zero risk — <code>len(numbers)</code> not checked before dividing</div><div class="issue-sub">HIGH · Bug · Line 5</div></div></div>
+    <div class="analysis-row"><span class="sev">🟡</span><div><div class="issue-text">No input type validation — non-numeric values will cause a <code>TypeError</code></div><div class="issue-sub">MEDIUM · Security · Line 1</div></div></div>
+    <div class="analysis-row"><span class="sev">🟢</span><div><div class="issue-text">Consider using <code>sum()</code> instead of manual loop for better readability</div><div class="issue-sub">LOW · Code Quality · Lines 2–4</div></div></div>
+  `,
+  fix: `
+    <div class="success-box" style="margin-bottom:10px">✅ Code fixed successfully!</div>
+    <div class="code-output">def calculate_average(numbers):<br>&nbsp;&nbsp;&nbsp;&nbsp;if not numbers:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise ValueError("List cannot be empty")<br>&nbsp;&nbsp;&nbsp;&nbsp;if not all(isinstance(n, (int, float)) for n in numbers):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise TypeError("All elements must be numeric")<br>&nbsp;&nbsp;&nbsp;&nbsp;return sum(numbers) / len(numbers)</div>
+  `,
+  tests: `
+    <div class="success-box" style="margin-bottom:10px">✅ Test cases generated!</div>
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px">Unit Tests</div>
+    <div class="code-output" style="margin-bottom:8px">assert calculate_average([10,20,30]) == 20.0<br>assert calculate_average([5]) == 5.0<br>assert calculate_average([-1,1]) == 0.0</div>
+    <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px">Edge Cases</div>
+    <div class="code-output">calculate_average([]) → raises ValueError<br>calculate_average(['a',1]) → raises TypeError<br>calculate_average([0,0,0]) == 0.0</div>
+  `,
+  tutor: `
+    <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px">👨‍🏫 CodeMentor AI</div>
+    <div class="tutor-box">Hey! Great attempt 👏 Let's improve this together 😊</div>
+    <div class="tutor-step"><strong>🔍 What went wrong:</strong> Your function crashes on an empty list because dividing by <code>len([])</code> = 0 raises a <code>ZeroDivisionError</code>.</div>
+    <div class="tutor-step"><strong>💡 Why it happens:</strong> Python raises an error any time you divide by zero — there's no automatic fallback.</div>
+    <div class="tutor-step"><strong>🛠 How to fix it:</strong> Add a guard clause at the top: <code>if not numbers: raise ValueError("Empty list")</code></div>
+    <div class="tutor-step"><strong>🚀 Pro tip:</strong> Use Python's built-in <code>sum()</code> + <code>len()</code> — it's more readable and slightly faster than a manual loop!</div>
+  `,
+  study: `
+    <div class="sub-tabs" id="subTabRow">
+      <div class="sub-tab active" onclick="switchSubTab('concept',this)">📖 Concept</div>
+      <div class="sub-tab" onclick="switchSubTab('practice',this)">🧠 Practice</div>
+      <div class="sub-tab" onclick="switchSubTab('quiz',this)">❓ Quiz</div>
+      <div class="sub-tab" onclick="switchSubTab('tips',this)">💡 Tips</div>
+    </div>
+    <div id="subContent"></div>
+  `
+};
+
+const subContents = {
+  concept: `<div style="font-size:12px;color:var(--color-text-primary);line-height:1.7"><strong>List Aggregation & Arithmetic</strong><br><br>This code collects multiple numbers and computes a single representative value — the mean.<br><br><em>Real-life analogy:</em> Think of averaging like a teacher calculating a student's final grade from individual test scores. Each score contributes equally to the result.<br><br>This pattern appears everywhere: analytics dashboards, sensor data, financial calculations.</div>`,
+  practice: `<div style="font-size:12px;color:var(--color-text-primary);line-height:1.7"><span style="color:var(--color-text-success);font-weight:500">🟢 Easy:</span> Write a function that returns the maximum value in a list without using <code>max()</code>.<br><br><span style="color:var(--color-text-warning);font-weight:500">🟡 Medium:</span> Extend <code>calculate_average</code> to return both mean and median.<br><br><span style="color:var(--color-text-danger);font-weight:500">🔴 Hard:</span> Implement a running average class that updates efficiently as new numbers are added, in O(1) time.</div>`,
+  quiz: `
+    <div class="quiz-q">Q1. What error does <code>calculate_average([])</code> raise in the original code?</div>
+    <div class="quiz-opt">A) ValueError</div><div class="quiz-opt">B) IndexError</div>
+    <div class="quiz-opt correct">C) ZeroDivisionError ✅</div><div class="quiz-opt">D) TypeError</div>
+    <div style="height:10px"></div>
+    <div class="quiz-q">Q2. Which built-in replaces the manual total loop?</div>
+    <div class="quiz-opt correct">A) sum() ✅</div><div class="quiz-opt">B) reduce()</div>
+    <div class="quiz-opt">C) map()</div><div class="quiz-opt">D) filter()</div>
+  `,
+  tips: `<div style="font-size:12px;color:var(--color-text-primary);line-height:1.7"><strong>📌 Best Practices</strong><br>• Always validate inputs before processing<br>• Prefer built-ins (<code>sum</code>, <code>len</code>) over manual loops<br>• Raise meaningful exceptions with descriptive messages<br><br><strong>⚠️ Common Mistakes</strong><br>• Forgetting the empty-list edge case<br>• Not handling non-numeric inputs<br>• Using <code>print</code> instead of <code>return</code> in reusable functions<br><br><strong>📈 Improvement Tips</strong><br>• Add type hints: <code>def calculate_average(numbers: list[float]) -> float</code><br>• Write docstrings for every public function<br>• Consider wrapping in a class for extensibility</div>`
+};
+
+let activeBtn = document.getElementById('btnAnalyze');
+let activeSubTab = 'concept';
+
+function switchTab(name, btn) {
+  document.getElementById('contentArea').innerHTML = contents[name] || '';
+  document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const map = {analysis:'tabAnalysis',fix:'tabFix',tests:'tabTests',tutor:'tabTutor',study:'tabStudy'};
+  document.getElementById(map[name]).classList.add('active');
+  if (name === 'study') {
+    setTimeout(() => switchSubTab('concept', document.querySelector('.sub-tab.active') || document.querySelector('.sub-tab')), 10);
+  }
+}
+
+function switchSubTab(name, el) {
+  document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('subContent').innerHTML = subContents[name] || '';
+}
+
+document.getElementById('contentArea').innerHTML = contents.analysis;
+
+document.getElementById('codeInput').addEventListener('input', function() {
+  const code = this.value;
+  const lang = /def |import |print\(|self\./.test(code) ? 'Python'
+    : /#include|printf|scanf/.test(code) ? 'C'
+    : /public class|System\.out/.test(code) ? 'Java'
+    : /function |const |let |=>/.test(code) ? 'JavaScript' : 'Unknown';
+  document.getElementById('detectedLang').textContent = '🔎 Auto-detected: ' + lang;
+  const sel = document.getElementById('langSel');
+  const opts = Array.from(sel.options).map(o => o.value);
+  if (opts.includes(lang)) sel.value = lang;
+});
+</script>
